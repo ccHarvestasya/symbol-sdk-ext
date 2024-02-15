@@ -2,7 +2,7 @@
   "name": "symbol-sdk-ext",
   "version": "0.1.0",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "files": [
     "dist"
   ],
