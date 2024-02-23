@@ -1,7 +1,8 @@
-import { BaseRestGateway } from './BaseRestGateway';
-import { ChainInfo } from './model/ChainInfo';
+import { ChainInfo } from '../model/blockchain';
+import { ChainRepository } from './ChainRepository';
+import { Http } from './Http';
 
-export class ChainHttp extends BaseRestGateway {
+export class ChainHttp extends Http implements ChainRepository {
   /**
    * ChainInfo取得
    * @returns 成功: ChainInfo, 失敗: undefined

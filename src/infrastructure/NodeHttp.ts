@@ -1,10 +1,9 @@
-import { BaseRestGateway } from './BaseRestGateway';
-import { NodeInfo } from './model/NodeInfo';
-import { NodePeer } from './model/NodePeer';
-import { NodeTime } from './model/NodeTime';
-import { NodeUnlockedAccount } from './model/NodeUnlockedAccount';
+import { NodeInfo, NodePeer } from '../model/node';
+import { NodeTime } from '../model/node/NodeTime';
+import { NodeUnlockedAccount } from '../model/node/NodeUnlockedAccount';
+import { Http } from './Http';
 
-export class NodeHttp extends BaseRestGateway {
+export class NodeHttp extends Http {
   /**
    * NodeInfo取得
    * @returns 成功: NodeInfo, 失敗: undefined
@@ -14,8 +13,6 @@ export class NodeHttp extends BaseRestGateway {
     const nodeInfo = await this.requestRestGateway<NodeInfo>(path);
     if (nodeInfo) {
       nodeInfo.host = this.host; // たまに空の奴がいるので再セット
-      nodeInfo.isHttpsEnabled = this.isHttps;
-      nodeInfo.isAvailable = true;
     }
     return nodeInfo;
   }

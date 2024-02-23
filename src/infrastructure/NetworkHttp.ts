@@ -1,7 +1,7 @@
-import { BaseRestGateway } from './BaseRestGateway';
-import { NetworkProperties } from './model/NetworkProperties';
+import { NetworkProperties } from '../model/network/NetworkProperties';
+import { Http } from './Http';
 
-export class NetworkHttp extends BaseRestGateway {
+export class NetworkHttp extends Http {
   /**
    * NetworkProperties取得
    * @param host ホスト名

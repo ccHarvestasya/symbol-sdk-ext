@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-export abstract class BaseRestGateway {
+export abstract class Http {
   /** ベースURL */
   private baseUrl: string;
 

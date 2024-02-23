@@ -7,27 +7,27 @@ enum PacketType {
   PUSH_TRANSACTIONS = 0x009,
 }
 
-export abstract class BaseCatapult {
-  private connectionOptions: ConnectionOptions;
+export abstract class Socket {
+  private _connectionOptions: ConnectionOptions;
 
-  protected x509Certificate: X509Certificate | undefined;
+  protected _x509Certificate: X509Certificate | undefined;
 
   /**
    * コンストラクタ
-   * @param host ホスト
-   * @param port ポート(デフォルト: 7900)
-   * @param timeout タイムアウト(デフォルト: 3000)
+   * @param _host ホスト
+   * @param _port ポート(デフォルト: 7900)
+   * @param _timeout タイムアウト(デフォルト: 3000)
    */
   constructor(
-    protected readonly host: string,
-    protected readonly port: number = 7900,
-    private readonly timeout: number = 3000
+    protected readonly _host: string,
+    protected readonly _port: number = 7900,
+    private readonly _timeout: number = 3000
   ) {
     const currentDir = process.cwd().replace(/\\/g, '/');
-    this.connectionOptions = {
-      host: this.host,
-      port: this.port,
-      timeout: this.timeout,
+    this._connectionOptions = {
+      host: this._host,
+      port: this._port,
+      timeout: this._timeout,
       cert: fs.readFileSync(`${currentDir}/cert/node.full.crt.pem`),
       key: fs.readFileSync(`${currentDir}/cert/node.key.pem`),
       rejectUnauthorized: false,
@@ -39,7 +39,7 @@ export abstract class BaseCatapult {
    * @param payload トランザクションペイロード
    */
   public async announceTransaction(payload: Uint8Array): Promise<void> {
-    await this.catapult(PacketType.PUSH_TRANSACTIONS, payload, false);
+    await this.requestSocket(PacketType.PUSH_TRANSACTIONS, payload, false);
   }
 
   /**
@@ -49,7 +49,7 @@ export abstract class BaseCatapult {
    * @param isResponse レスポンス有無(デフォルト: true)
    * @returns レスポンスデータ
    */
-  protected async catapult(
+  protected async requestSocket(
     packetType: number,
     payload?: Uint8Array,
     isResponse: boolean = true
@@ -59,7 +59,7 @@ export abstract class BaseCatapult {
       let responseSize = 8; // ヘッダ分のサイズを前もって付与
       let responseData: Uint8Array | undefined = undefined;
 
-      const socket = tls.connect(this.connectionOptions, () => {
+      const socket = tls.connect(this._connectionOptions, () => {
         // Symbolパケット生成
         const headerSize = 8;
         const packetSize = headerSize + payloadSize;
@@ -89,7 +89,7 @@ export abstract class BaseCatapult {
       socket.on('secureConnect', () => {
         const peerX509 = socket.getPeerX509Certificate();
         if (!peerX509) return;
-        this.x509Certificate = peerX509;
+        this._x509Certificate = peerX509;
         // console.log(`${peerX509}`);
       });
 

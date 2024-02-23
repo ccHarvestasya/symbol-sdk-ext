@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
 import * as TLS from 'tls';
 
 export class SymbolSdkExt {
@@ -9,7 +8,7 @@ export class SymbolSdkExt {
   constructor(private readonly timeout: number = 3000) {}
 
   /**
-   * HTTPs有無
+   * HTTPs利用可能確認
    * @param host ホスト
    * @returns true: HTTPs有
    */
@@ -31,27 +30,5 @@ export class SymbolSdkExt {
         socket.destroy();
       });
     });
-  }
-
-  /**
-   * Restゲートウェイから値を取得する
-   * @param baseUrl ベースURL
-   * @param path パス
-   * @returns Restゲートウェイ応答結果
-   */
-  private async requestRestGateway<T>(baseUrl: string, path: string): Promise<T> {
-    try {
-      const restGwAxios = axios.create({
-        baseURL: baseUrl,
-        timeout: this.timeout,
-        headers: { 'Content-Type': 'application/json' },
-      });
-      const restGwResponseData = await restGwAxios.get(path).then((res: AxiosResponse<T>): T => {
-        return res.data;
-      });
-      return restGwResponseData;
-    } catch (e) {
-      throw e;
-    }
   }
 }
