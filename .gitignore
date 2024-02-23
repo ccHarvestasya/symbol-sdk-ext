@@ -37,4 +37,4 @@ lerna-debug.log*
 # Cert
 **/cert
 
-test.ts
+**/src/test.ts
