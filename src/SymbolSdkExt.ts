@@ -12,36 +12,27 @@ export class SymbolSdkExt {
    * @param host ホスト
    * @returns true: HTTPs有
    */
-  async isHttps(host: string): Promise<boolean> {
-    try {
-      return await this.isEnableHttps(host);
-    } catch (e) {
-      return false;
-    }
-  }
-
-  /**
-   * HTTPs利用可能確認
-   * @param host ホスト
-   * @returns true: HTTPs有
-   */
-  private isEnableHttps(host: string): Promise<boolean> {
+  isEnableHttps(host: string): Promise<boolean> {
     return new Promise((resolve) => {
-      const socket = TLS.connect(
-        { host: host, port: 3001, timeout: this.timeout, servername: host },
-        () => {
-          resolve(true);
+      try {
+        const socket = TLS.connect(
+          { host: host, port: 3001, timeout: this.timeout, servername: host },
+          () => {
+            resolve(true);
+            socket.destroy();
+          }
+        );
+        socket.on('timeout', () => {
+          resolve(false);
           socket.destroy();
-        }
-      );
-      socket.on('timeout', () => {
+        });
+        socket.on('error', () => {
+          resolve(false);
+          socket.destroy();
+        });
+      } catch (e) {
         resolve(false);
-        socket.destroy();
-      });
-      socket.on('error', () => {
-        resolve(false);
-        socket.destroy();
-      });
+      }
     });
   }
 }
