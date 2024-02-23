@@ -2,6 +2,7 @@ import { RepositoryFactoryHttp } from './infrastructure';
 
 (async function () {
   const address = 'TBZN46UIU5BFLJI46VB4JTHHCE5EN2RFLR7NX3A';
+
   // Restから取得
   const repoHttp = new RepositoryFactoryHttp('testnet1.symbol-mikun.net');
   const listener = repoHttp.createWebSocketListener();
