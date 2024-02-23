@@ -1,8 +1,9 @@
+import { ChainRepository } from '.';
 import { ChainInfo, FinalizedBlock } from '../model/blockchain';
 import { PacketBuffer } from '../util';
 import { Socket } from './Socket';
 
-export class ChainSocket extends Socket {
+export class ChainSocket extends Socket implements ChainRepository {
   /**
    * ChainInfo取得
    * @returns 成功: ChainInfo, 失敗: undefined
@@ -19,6 +20,7 @@ export class ChainSocket extends Socket {
       const socketDatas = await Promise.all(promises);
       if (!socketDatas[0]) return undefined;
       if (!socketDatas[1]) return undefined;
+
       // 編集
       const chainBuffer = new PacketBuffer(Buffer.from(socketDatas[0]));
       const finalBuffer = new PacketBuffer(Buffer.from(socketDatas[1]));
@@ -36,6 +38,7 @@ export class ChainSocket extends Socket {
         finalizationHeight,
         finalizationHash
       );
+
       chainInfo = new ChainInfo(height, scoreHigh, scoreLow, finalizedBlock);
     } catch (e) {
       chainInfo = undefined;

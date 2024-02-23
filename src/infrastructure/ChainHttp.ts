@@ -1,5 +1,5 @@
+import { ChainRepository } from '.';
 import { ChainInfo } from '../model/blockchain';
-import { ChainRepository } from './ChainRepository';
 import { Http } from './Http';
 
 export class ChainHttp extends Http implements ChainRepository {

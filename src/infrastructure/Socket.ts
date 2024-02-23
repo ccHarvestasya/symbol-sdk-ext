@@ -8,8 +8,14 @@ enum PacketType {
 }
 
 export abstract class Socket {
+  /**
+   * コネクションオプション
+   */
   private _connectionOptions: ConnectionOptions;
 
+  /**
+   * X509証明書
+   */
   protected _x509Certificate: X509Certificate | undefined;
 
   /**

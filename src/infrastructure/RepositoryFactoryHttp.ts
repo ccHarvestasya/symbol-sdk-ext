@@ -1,10 +1,12 @@
-import { ChainHttp } from './ChainHttp';
-import { ChainRepository } from './ChainRepository';
-import { Listener } from './Listener';
-import { NetworkHttp } from './NetworkHttp';
-import { NetworkRepository } from './NetworkRepository';
-import { NodeHttp } from './NodeHttp';
-import { NodeRepository } from './NodeRepository';
+import {
+  ChainHttp,
+  ChainRepository,
+  Listener,
+  NetworkHttp,
+  NetworkRepository,
+  NodeHttp,
+  NodeRepository,
+} from '.';
 
 /**
  * リポジトリファクトリーHTTP
@@ -46,6 +48,10 @@ export class RepositoryFactoryHttp {
     return new NetworkHttp(this._nodeHost, this._isHttps, this._timeout);
   }
 
+  /**
+   * WebSocketListener生成
+   * @returns WebSocketListener
+   */
   createWebSocketListener(): Listener {
     return new Listener(this._nodeHost, this._isHttps);
   }

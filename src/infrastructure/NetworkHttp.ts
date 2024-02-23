@@ -1,7 +1,8 @@
-import { NetworkProperties } from '../model/network/NetworkProperties';
-import { Http } from './Http';
+import {NetworkProperties} from '../model/network';
+import {NetworkRepository} from './';
+import {Http} from './Http';
 
-export class NetworkHttp extends Http {
+export class NetworkHttp extends Http implements NetworkRepository {
   /**
    * NetworkProperties取得
    * @param host ホスト名

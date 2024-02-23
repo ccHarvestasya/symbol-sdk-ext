@@ -1,9 +1,8 @@
-import { NodeInfo, NodePeer } from '../model/node';
-import { NodeTime } from '../model/node/NodeTime';
-import { NodeUnlockedAccount } from '../model/node/NodeUnlockedAccount';
+import { NodeRepository } from '.';
+import { NodeInfo, NodePeer, NodeTime, NodeUnlockedAccount } from '../model/node';
 import { Http } from './Http';
 
-export class NodeHttp extends Http {
+export class NodeHttp extends Http implements NodeRepository {
   /**
    * NodeInfo取得
    * @returns 成功: NodeInfo, 失敗: undefined

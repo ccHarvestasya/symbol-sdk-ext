@@ -1,7 +1,4 @@
-import { ChainRepository } from './ChainRepository';
-import { ChainSocket } from './ChainSocket';
-import { NodeRepository } from './NodeRepository';
-import { NodeSocket } from './NodeSocket';
+import { ChainRepository, ChainSocket, NodeRepository, NodeSocket } from '.';
 
 /**
  * リポジトリファクトリーSocket

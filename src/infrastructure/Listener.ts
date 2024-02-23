@@ -92,6 +92,7 @@ export class Listener {
         const data = JSON.parse(ev.data.toString());
         if (data.uid && this._uid !== data.uid) {
           this._uid = data.uid;
+          console.log(this._uid);
           for (const key of Object.keys(this._functionMap)) {
             this._listener!.send(
               JSON.stringify({

@@ -1,9 +1,9 @@
-import { NodeInfo, NodePeer, NodeUnlockedAccount } from '../model/node';
-import { NodeTime } from '../model/node/NodeTime';
+import { NodeRepository } from '.';
+import { NodeInfo, NodePeer, NodeTime, NodeUnlockedAccount } from '../model/node';
 import { PacketBuffer } from '../util';
 import { Socket } from './Socket';
 
-export class NodeSocket extends Socket {
+export class NodeSocket extends Socket implements NodeRepository {
   /**
    * NodeInfo取得
    * @returns 成功: NodeInfo, 失敗: undefined
