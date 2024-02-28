@@ -43,13 +43,13 @@ export class Listener {
   /**
    * コンストラクタ
    * @param _host ホスト
-   * @param _isAlwaysConnected 常時接続(デフォルト: false)
    * @param _isHttps HTTPs有無(デフォルト: false)
+   * @param _isAlwaysConnected 常時接続(デフォルト: false)
    */
   constructor(
     private readonly _host: string,
-    private _isAlwaysConnected: boolean = false,
-    private readonly _isHttps: boolean = false
+    private readonly _isHttps: boolean = false,
+    private _isAlwaysConnected: boolean = false
   ) {
     if (this._isHttps) {
       this._wsUrl = `wss://${this._host}:3001/ws`;
