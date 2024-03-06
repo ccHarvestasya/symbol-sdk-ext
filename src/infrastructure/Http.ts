@@ -35,7 +35,7 @@ export abstract class Http {
         headers: { 'Content-Type': 'application/json' },
       });
       const restGwResponseData = await restGwAxios.get(path).then((res: AxiosResponse<T>): T => {
-        return res.data;
+        return res.data as T;
       });
       return restGwResponseData;
     } catch (e) {
