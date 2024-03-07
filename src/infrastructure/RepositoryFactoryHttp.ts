@@ -7,6 +7,8 @@ import {
   NodeHttp,
   NodeRepository,
 } from '.';
+import { AccountHttp } from './AccountHttp';
+import { AccountRepository } from './AccountRepository';
 
 /**
  * リポジトリファクトリーHTTP
@@ -54,5 +56,9 @@ export class RepositoryFactoryHttp {
    */
   createWebSocketListener(): Listener {
     return new Listener(this._nodeHost, this._isHttps);
+  }
+
+  createAccountRepository(): AccountRepository {
+    return new AccountHttp(this._nodeHost, this._isHttps, this._timeout);
   }
 }

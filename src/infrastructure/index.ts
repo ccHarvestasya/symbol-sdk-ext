@@ -1,3 +1,5 @@
+export * from './AccountHttp';
+export * from './AccountRepository';
 export * from './ChainHttp';
 export * from './ChainRepository';
 export * from './ChainSocket';
