@@ -49,7 +49,8 @@ export class Listener {
   constructor(
     private readonly _host: string,
     private readonly _isHttps: boolean = false,
-    private _isAlwaysConnected: boolean = false
+    private _isAlwaysConnected: boolean = false,
+    private readonly timeout: number = 3000
   ) {
     if (this._isHttps) {
       this._wsUrl = `wss://${this._host}:3001/ws`;
@@ -65,7 +66,7 @@ export class Listener {
   async isWebsokectAvailable(): Promise<boolean> {
     if (this._listener) return true;
     return new Promise<boolean>((resolve) => {
-      const lsnr = new WebSocket(this._wsUrl);
+      const lsnr = new WebSocket(this._wsUrl, { handshakeTimeout: this.timeout });
       lsnr.onopen = (): void => {
         lsnr.close();
         resolve(true);
@@ -82,7 +83,7 @@ export class Listener {
   async open(): Promise<void> {
     this._isAlwaysConnected = true;
     return new Promise<void>((resolve, reject) => {
-      this._listener = new WebSocket(this._wsUrl);
+      this._listener = new WebSocket(this._wsUrl, { handshakeTimeout: this.timeout });
 
       /**
        * メッセージ受信時
